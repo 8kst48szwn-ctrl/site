@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#87CEEB"/>
+      <stop offset="100%" stop-color="#b8dff0"/>
+    </linearGradient>
+    <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1e7a8c"/>
+      <stop offset="100%" stop-color="#0d4a5a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#sky)"/>
+  <rect y="400" width="1200" height="400" fill="#2d5a27"/>
+  <rect y="480" width="80" height="200" x="100" fill="#1e3a1a"/>
+  <rect y="300" width="1200" height="150" fill="url(#water)" opacity="0.7"/>
+  <text x="600" y="420" text-anchor="middle" font-family="sans-serif" font-size="28" fill="rgba(255,255,255,0.6)">Voeg hier uw foto toe: images/aerial1.jpg</text>
+</svg>
