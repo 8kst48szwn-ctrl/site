@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Caravanpark De Stille Plas — Recreatiewoningen in Loosdrecht</title>
+  <meta name="description" content="Kleinschalig recreatiepark in Loosdrecht. Moderne recreatiewoningen aan het water, omringd door riet, groen en rustig vaarwater." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;0,800;1,600;1,700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --water: #1a3d52;
+      --water-mid: #2a5f7a;
+      --water-light: #4a8fa8;
+      --reed: #2d5a3d;
+      --reed-light: #3d7a52;
+      --sun: #e8a020;
+      --sun-light: #f5c060;
+      --cream: #f8f5ee;
+      --sand: #ede8dc;
+      --white: #ffffff;
+      --ink: #1a2520;
+      --ink-soft: #4a5850;
+      --muted: #8a9890;
+      --border: rgba(26,61,82,0.1);
+      --radius: 16px;
+      --radius-lg: 24px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--sand); }
+    ::-webkit-scrollbar-thumb { background: var(--water-light); border-radius: 99px; }
+
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+      padding: 0 5%; height: 72px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(248,245,238,0.88);
+      backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s;
+    }
+
+    .nav-logo {
+      display: flex; flex-direction: column; line-height: 1;
+    }
+    .logo-main {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem; font-weight: 700;
+      color: var(--water); letter-spacing: -0.3px;
+    }
+    .logo-sub {
+      font-size: 0.65rem; font-weight: 500; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--muted);
+    }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.85rem; font-weight: 500; color: var(--ink-soft);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--water); }
+
+    .nav-cta { display: flex; gap: 0.75rem; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.6rem 1.4rem; border-radius: 99px;
+      font-size: 0.85rem; font-weight: 600; cursor: pointer;
+      text-decoration: none; border: none; font-family: inherit;
+      transition: all 0.22s;
+    }
+    .btn-outline {
+      background: transparent; color: var(--water);
+      border: 1.5px solid var(--water);
+    }
+    .btn-outline:hover { background: var(--water); color: #fff; }
+    .btn-primary {
+      background: var(--water); color: #fff;
+      box-shadow: 0 4px 20px rgba(26,61,82,0.25);
+    }
+    .btn-primary:hover { background: var(--water-mid); box-shadow: 0 6px 28px rgba(26,61,82,0.35); transform: translateY(-1px); }
+    .btn-sun {
+      background: var(--sun); color: #fff;
+      box-shadow: 0 4px 20px rgba(232,160,32,0.3);
+    }
+    .btn-sun:hover { background: #d4911a; box-shadow: 0 6px 28px rgba(232,160,32,0.45); transform: translateY(-1px); }
+    .btn-lg { padding: 0.9rem 2.2rem; font-size: 0.95rem; }
+    .btn-xl { padding: 1.05rem 2.6rem; font-size: 1rem; }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--ink); border-radius: 99px; transition: all 0.3s; }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .hero-photo-side {
+      position: absolute; right: 0; top: 0; bottom: 0;
+      width: 52%;
+    }
+    .hero-photo-side img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .hero-photo-side::before {
+      content: '';
+      position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(to right, var(--cream) 0%, transparent 40%);
+    }
+    .hero-photo-side::after {
+      content: '';
+      position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(to top, rgba(248,245,238,0.4) 0%, transparent 30%);
+    }
+
+    .hero-left {
+      position: relative; z-index: 2;
+      padding: 120px 5% 80px 7%;
+    }
+
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--water-mid);
+      margin-bottom: 1.75rem;
+    }
+    .hero-tag::before {
+      content: '';
+      display: block; width: 28px; height: 1.5px;
+      background: var(--sun);
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 5vw, 4.5rem);
+      font-weight: 800; line-height: 1.05;
+      letter-spacing: -1px; color: var(--water);
+      margin-bottom: 0.5rem;
+    }
+
+    .hero h1 em {
+      font-style: italic; font-weight: 700;
+      color: var(--reed);
+    }
+
+    .hero-sub {
+      font-size: 1.05rem; color: var(--ink-soft);
+      max-width: 460px; margin-bottom: 2.5rem;
+      line-height: 1.8;
+    }
+
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3.5rem; }
+
+    .hero-stats {
+      display: flex; gap: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+    .hstat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem; font-weight: 800;
+      color: var(--water); line-height: 1;
+    }
+    .hstat-lbl { font-size: 0.75rem; color: var(--muted); font-weight: 500; margin-top: 0.2rem; }
+
+    /* Floating card on hero */
+    .hero-card {
+      position: absolute; z-index: 10;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(16px);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      box-shadow: 0 20px 60px rgba(26,61,82,0.2);
+      border: 1px solid rgba(26,61,82,0.08);
+    }
+    .hero-card.card-location {
+      bottom: 12%; right: 4%;
+    }
+    .hero-card.card-water {
+      top: 28%; right: 8%;
+    }
+    .card-icon { font-size: 1.4rem; margin-bottom: 0.3rem; }
+    .card-title { font-weight: 700; font-size: 0.875rem; color: var(--water); }
+    .card-desc { font-size: 0.75rem; color: var(--muted); margin-top: 0.1rem; }
+
+    /* scroll indicator */
+    .scroll-hint {
+      position: absolute; bottom: 2.5rem; left: 7%;
+      display: flex; align-items: center; gap: 0.6rem;
+      font-size: 0.72rem; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--muted);
+      animation: fadeInUp 1s 1.5s both;
+    }
+    .scroll-line {
+      width: 32px; height: 1px; background: var(--muted);
+      animation: scrollAnim 2s ease-in-out infinite;
+    }
+    @keyframes scrollAnim { 0%,100%{opacity:0.4;transform:scaleX(0.5)} 50%{opacity:1;transform:scaleX(1)} }
+    @keyframes fadeInUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+
+    /* ── Marquee ── */
+    .marquee-section {
+      background: var(--water);
+      padding: 1rem 0;
+      overflow: hidden;
+    }
+    .marquee-track {
+      display: flex; gap: 3rem;
+      animation: marquee 24s linear infinite;
+      width: max-content;
+    }
+    @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+    .marquee-item {
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 2px;
+      text-transform: uppercase; color: rgba(255,255,255,0.5);
+      white-space: nowrap; display: flex; align-items: center; gap: 1.5rem;
+    }
+    .marquee-item span { width: 3px; height: 3px; background: var(--sun); border-radius: 50%; display: inline-block; }
+
+    /* ── Section base ── */
+    section { padding: 7rem 7%; }
+
+    .section-tag {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--water-mid);
+      margin-bottom: 1rem;
+    }
+    .section-tag::before { content:''; display:block; width:24px; height:1.5px; background:var(--sun); }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800; line-height: 1.1;
+      letter-spacing: -0.5px; color: var(--water);
+      margin-bottom: 1rem;
+    }
+    .section-title em { font-style: italic; color: var(--reed); }
+    .section-sub { font-size: 1rem; color: var(--ink-soft); max-width: 540px; line-height: 1.8; }
+
+    /* ── Welkom ── */
+    .welkom-section { background: var(--white); }
+    .welkom-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+
+    .welkom-img-wrap {
+      position: relative; border-radius: var(--radius-lg); overflow: hidden;
+      height: 560px;
+    }
+    .welkom-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .welkom-img-badge {
+      position: absolute; bottom: 24px; left: 24px;
+      background: rgba(255,255,255,0.94); backdrop-filter: blur(12px);
+      border-radius: var(--radius); padding: 1.1rem 1.4rem;
+      box-shadow: 0 16px 40px rgba(26,61,82,0.15);
+    }
+    .badge-big { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 800; color: var(--water); line-height: 1; }
+    .badge-lbl { font-size: 0.72rem; color: var(--muted); font-weight: 500; margin-top: 0.2rem; }
+
+    .welkom-text .section-sub { max-width: 100%; margin-bottom: 2.5rem; }
+
+    .welkom-kenmerken {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1.25rem; margin-top: 2rem;
+    }
+    .kenmerk {
+      display: flex; gap: 0.75rem; align-items: flex-start;
+      background: var(--cream); border-radius: var(--radius);
+      padding: 1rem;
+    }
+    .kenmerk-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 0.1rem; }
+    .kenmerk h4 { font-weight: 700; font-size: 0.875rem; color: var(--water); margin-bottom: 0.1rem; }
+    .kenmerk p { font-size: 0.8rem; color: var(--ink-soft); line-height: 1.6; }
+
+    /* ── Bento / sfeer ── */
+    .bento-section { background: var(--sand); }
+    .bento-header { text-align: center; margin-bottom: 3.5rem; }
+    .bento-header .section-sub { margin: 0 auto; }
+
+    .bento {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: 340px 280px;
+      gap: 1rem;
+    }
+    .bento-cell {
+      border-radius: var(--radius-lg); overflow: hidden;
+      position: relative; background: var(--white);
+    }
+    .bento-cell img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+    .bento-cell:hover img { transform: scale(1.05); }
+    .bento-cell .ov { position: absolute; inset: 0; background: linear-gradient(to top, rgba(26,61,82,0.7) 0%, transparent 55%); }
+    .bento-cell .bc { position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem; }
+    .bc-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--sun-light); margin-bottom: 0.3rem; }
+    .bc-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; color: #fff; line-height: 1.2; }
+
+    .bento-cell:nth-child(1) { grid-column: span 7; }
+    .bento-cell:nth-child(2) { grid-column: span 5; }
+    .bento-cell:nth-child(3) { grid-column: span 4; }
+    .bento-cell:nth-child(4) { grid-column: span 4; }
+    .bento-cell:nth-child(5) { grid-column: span 4; }
+
+    /* ── Feature splits ── */
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; padding: 7rem 7%; }
+    .split.bg-white { background: var(--white); }
+    .split.bg-cream { background: var(--cream); }
+    .split.bg-sand  { background: var(--sand); }
+    .split.reverse { direction: rtl; }
+    .split.reverse > * { direction: ltr; }
+
+    .split-img {
+      position: relative; border-radius: var(--radius-lg); overflow: hidden;
+      height: 500px;
+    }
+    .split-img img { width: 100%; height: 100%; object-fit: cover; }
+    .split-img-badge {
+      position: absolute; top: 20px; left: 20px;
+      background: rgba(255,255,255,0.93); backdrop-filter: blur(12px);
+      border-radius: 12px; padding: 0.9rem 1.1rem;
+      box-shadow: 0 12px 32px rgba(26,61,82,0.15);
+    }
+    .sib-val { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 800; color: var(--water); line-height: 1; }
+    .sib-lbl { font-size: 0.68rem; color: var(--muted); font-weight: 500; }
+
+    .split-list { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 2rem; }
+    .split-item { display: flex; gap: 0.9rem; align-items: flex-start; }
+    .split-item-icon {
+      width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 1rem;
+    }
+    .si-water { background: rgba(26,61,82,0.08); }
+    .si-reed  { background: rgba(45,90,61,0.08); }
+    .si-sun   { background: rgba(232,160,32,0.12); }
+    .split-item h4 { font-weight: 700; font-size: 0.9rem; color: var(--water); margin-bottom: 0.2rem; }
+    .split-item p { font-size: 0.83rem; color: var(--ink-soft); line-height: 1.65; }
+
+    /* ── Seizoen strip ── */
+    .seizoen-strip {
+      background: var(--water);
+      padding: 5rem 7%;
+    }
+    .seizoen-inner { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+    .seizoen-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius); padding: 2rem;
+      text-align: center;
+      transition: background 0.3s;
+    }
+    .seizoen-card:hover { background: rgba(255,255,255,0.12); }
+    .seizoen-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+    .seizoen-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem; }
+    .seizoen-desc { font-size: 0.8rem; color: rgba(255,255,255,0.6); line-height: 1.65; }
+
+    /* ── Galerij ── */
+    .galerij-section { background: var(--white); }
+    .galerij-header { text-align: center; margin-bottom: 3.5rem; }
+    .galerij-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: 280px 280px;
+      gap: 1rem;
+    }
+    .galerij-item {
+      border-radius: var(--radius); overflow: hidden;
+      position: relative; cursor: pointer;
+    }
+    .galerij-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .galerij-item:hover img { transform: scale(1.06); }
+    .galerij-item::after {
+      content: '+';
+      position: absolute; inset: 0; background: rgba(26,61,82,0.4);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem; color: #fff; font-weight: 300;
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .galerij-item:hover::after { opacity: 1; }
+    .galerij-item:nth-child(1) { grid-column: span 2; }
+    .galerij-item:nth-child(4) { grid-column: span 1; }
+    .galerij-item:nth-child(5) { grid-column: span 2; }
+
+    /* ── Testimonials ── */
+    .testi-section { background: var(--sand); }
+    .testi-header { text-align: center; margin-bottom: 3.5rem; }
+    .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .testi-card {
+      background: var(--white); border-radius: var(--radius-lg);
+      padding: 2rem; border: 1px solid var(--border);
+      display: flex; flex-direction: column; gap: 1.25rem;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .testi-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(26,61,82,0.12); }
+    .stars { color: var(--sun); font-size: 0.9rem; letter-spacing: 2px; }
+    .testi-text { font-size: 0.9rem; color: var(--ink-soft); line-height: 1.8; flex: 1; font-style: italic; }
+    .testi-author { display: flex; align-items: center; gap: 0.75rem; }
+    .tav {
+      width: 42px; height: 42px; border-radius: 50%;
+      object-fit: cover; border: 2px solid var(--sand);
+    }
+    .tav-init {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: var(--water); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.85rem; flex-shrink: 0;
+    }
+    .author-name { font-weight: 700; font-size: 0.875rem; color: var(--water); }
+    .author-from { font-size: 0.75rem; color: var(--muted); }
+
+    /* ── CTA ── */
+    .cta-section {
+      position: relative; overflow: hidden;
+      min-height: 540px; display: flex; align-items: center;
+    }
+    .cta-bg {
+      position: absolute; inset: 0;
+      background: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1800&q=85&auto=format&fit=crop') center/cover no-repeat;
+    }
+    .cta-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(26,61,82,0.93) 0%, rgba(26,61,82,0.75) 60%, rgba(26,61,82,0.88) 100%);
+    }
+    .cta-inner {
+      position: relative; z-index: 1;
+      max-width: 680px; padding: 6rem 7%;
+    }
+    .cta-inner h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800; color: #fff;
+      line-height: 1.1; margin-bottom: 1rem;
+    }
+    .cta-inner h2 em { font-style: italic; color: var(--sun-light); }
+    .cta-inner p { color: rgba(255,255,255,0.7); font-size: 1rem; margin-bottom: 2rem; line-height: 1.75; }
+
+    .cta-form {
+      display: flex; gap: 0.5rem; max-width: 460px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 99px; padding: 0.4rem 0.4rem 0.4rem 1.4rem;
+      backdrop-filter: blur(12px); transition: border-color 0.2s;
+    }
+    .cta-form:focus-within { border-color: rgba(255,255,255,0.4); }
+    .cta-form input {
+      flex: 1; background: transparent; border: none; outline: none;
+      color: #fff; font-size: 0.9rem; font-family: inherit;
+    }
+    .cta-form input::placeholder { color: rgba(255,255,255,0.5); }
+    .cta-note { font-size: 0.75rem; color: rgba(255,255,255,0.45); margin-top: 0.75rem; }
+
+    /* ── Contact ── */
+    .contact-section { background: var(--cream); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 5rem; align-items: start; }
+
+    .contact-photo { border-radius: var(--radius-lg); overflow: hidden; height: 300px; margin-bottom: 2.5rem; }
+    .contact-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+    .contact-items { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2rem; }
+    .contact-item { display: flex; gap: 0.875rem; align-items: flex-start; }
+    .contact-icon {
+      width: 42px; height: 42px; border-radius: 11px; flex-shrink: 0;
+      background: rgba(26,61,82,0.08);
+      display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+    }
+    .contact-item h4 { font-weight: 700; font-size: 0.875rem; color: var(--water); margin-bottom: 0.15rem; }
+    .contact-item p { font-size: 0.83rem; color: var(--ink-soft); }
+
+    .contact-form {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 2.5rem;
+      box-shadow: 0 20px 60px rgba(26,61,82,0.07);
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1.25rem; }
+    .form-group label { font-size: 0.76rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+    .form-group input, .form-group select, .form-group textarea {
+      background: var(--cream); border: 1.5px solid var(--border);
+      border-radius: 10px; padding: 0.75rem 1rem;
+      color: var(--ink); font-family: inherit; font-size: 0.9rem;
+      outline: none; transition: border-color 0.2s; resize: vertical;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--water); }
+    .form-group select option { background: var(--cream); }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--water);
+      color: rgba(255,255,255,0.8);
+      padding: 5rem 7% 2.5rem;
+    }
+    .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 4rem; }
+    .footer-brand .logo-main { color: #fff; font-size: 1.3rem; }
+    .footer-brand .logo-sub { color: rgba(255,255,255,0.4); }
+    .footer-brand p { font-size: 0.85rem; color: rgba(255,255,255,0.5); margin-top: 1rem; max-width: 250px; line-height: 1.75; }
+    .footer-social { display: flex; gap: 0.6rem; margin-top: 1.5rem; }
+    .social-btn {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem; color: rgba(255,255,255,0.6);
+      text-decoration: none; transition: all 0.2s;
+    }
+    .social-btn:hover { background: rgba(255,255,255,0.18); color: #fff; }
+    .footer-col h5 { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: rgba(255,255,255,0.9); margin-bottom: 1.25rem; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+    .footer-col ul a { font-size: 0.85rem; color: rgba(255,255,255,0.5); transition: color 0.2s; }
+    .footer-col ul a:hover { color: #fff; }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1);
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-bottom p { font-size: 0.78rem; color: rgba(255,255,255,0.35); }
+    .footer-bottom-links { display: flex; gap: 1.5rem; }
+    .footer-bottom-links a { font-size: 0.78rem; color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.2s; }
+    .footer-bottom-links a:hover { color: rgba(255,255,255,0.8); }
+
+    /* ── Reveal ── */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── Toast ── */
+    .toast {
+      position: fixed; bottom: 2rem; right: 2rem;
+      background: var(--water); color: #fff;
+      border-radius: var(--radius); padding: 1rem 1.5rem;
+      display: flex; align-items: center; gap: 0.75rem;
+      font-size: 0.875rem; z-index: 9999;
+      transform: translateY(120%); transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+      max-width: 340px; box-shadow: 0 20px 50px rgba(26,61,82,0.4);
+    }
+    .toast.show { transform: translateY(0); }
+    .toast-icon { font-size: 1.1rem; }
+
+    /* ── Mobile ── */
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .mobile-menu {
+        display: none; position: fixed; inset: 72px 0 0;
+        background: var(--cream); padding: 2rem 5%;
+        flex-direction: column; gap: 1.5rem; z-index: 998;
+        border-top: 1px solid var(--border);
+      }
+      .mobile-menu.open { display: flex; }
+      .mobile-menu a { color: var(--ink); font-size: 1rem; font-weight: 600; padding: 0.75rem 0; border-bottom: 1px solid var(--border); }
+
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-photo-side { display: none; }
+      .hero-left { padding: 110px 5% 60px; }
+      .hero-card { display: none; }
+      .scroll-hint { display: none; }
+
+      .welkom-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .welkom-img-wrap { height: 320px; }
+
+      .bento { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+      .bento-cell { grid-column: span 1 !important; height: 220px; }
+
+      .split { grid-template-columns: 1fr; gap: 3rem; }
+      .split.reverse { direction: ltr; }
+      .split-img { height: 300px; }
+
+      .seizoen-inner { grid-template-columns: 1fr 1fr; }
+
+      .galerij-grid { grid-template-columns: 1fr 1fr; }
+      .galerij-item { grid-column: span 1 !important; height: 200px; }
+
+      .testi-grid { grid-template-columns: 1fr; }
+
+      .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 560px) {
+      .footer-grid { grid-template-columns: 1fr; }
+      .seizoen-inner { grid-template-columns: 1fr 1fr; }
+      .hero-stats { gap: 1.5rem; }
+      .welkom-kenmerken { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Nav ── -->
+<nav id="navbar">
+  <div class="nav-logo">
+    <span class="logo-main">De Stille Plas</span>
+    <span class="logo-sub">Caravanpark · Loosdrecht</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#welkom">Het park</a></li>
+    <li><a href="#sfeer">Sfeer</a></li>
+    <li><a href="#galerij">Galerij</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-cta">
+    <a href="#contact" class="btn btn-outline">Informatie</a>
+    <a href="#contact" class="btn btn-primary">Neem contact op</a>
+  </div>
+  <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#welkom">Het park</a>
+  <a href="#sfeer">Sfeer</a>
+  <a href="#galerij">Galerij</a>
+  <a href="#contact">Contact</a>
+  <a href="#contact" class="btn btn-primary btn-lg" style="width:100%;justify-content:center;margin-top:0.5rem">Contact opnemen →</a>
+</div>
+
+<!-- ── Hero ── -->
+<section class="hero" id="top">
+  <div class="hero-photo-side">
+    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=90&auto=format&fit=crop" alt="Loosdrecht aan het water" loading="eager" />
+  </div>
+
+  <div class="hero-left">
+    <div class="hero-tag reveal">Loosdrecht · aan de Stille Plas</div>
+
+    <h1 class="reveal" style="transition-delay:0.1s">
+      Wonen waar<br>het water <em>stil is.</em>
+    </h1>
+
+    <p class="hero-sub reveal" style="transition-delay:0.18s">
+      Een kleinschalig recreatiepark in het hart van de Loosdrechtse natuur. Moderne recreatiewoningen, omringd door riet, groen en rustig vaarwater.
+    </p>
+
+    <div class="hero-actions reveal" style="transition-delay:0.26s">
+      <a href="#contact" class="btn btn-primary btn-xl">Neem contact op →</a>
+      <a href="#welkom" class="btn btn-outline btn-xl">Ontdek het park</a>
+    </div>
+
+    <div class="hero-stats reveal" style="transition-delay:0.34s">
+      <div>
+        <div class="hstat-num">100%</div>
+        <div class="hstat-lbl">Omringd door natuur & water</div>
+      </div>
+      <div>
+        <div class="hstat-num">Heel jaar</div>
+        <div class="hstat-lbl">Mogelijk te verblijven</div>
+      </div>
+      <div>
+        <div class="hstat-num">Loosdrecht</div>
+        <div class="hstat-lbl">Dicht bij Utrecht & Amsterdam</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-card card-location reveal" style="transition-delay:0.5s">
+    <div class="card-icon">📍</div>
+    <div class="card-title">Loosdrecht</div>
+    <div class="card-desc">Aan de Loosdrechtse Plassen</div>
+  </div>
+
+  <div class="hero-card card-water reveal" style="transition-delay:0.6s">
+    <div class="card-icon">⛵</div>
+    <div class="card-title">Eigen ligplaats</div>
+    <div class="card-desc">Direct aan het vaarwater</div>
+  </div>
+
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- ── Marquee ── -->
+<div class="marquee-section">
+  <div style="overflow:hidden">
+    <div class="marquee-track">
+      <div class="marquee-item">Rust & natuur <span></span></div>
+      <div class="marquee-item">Aan het water <span></span></div>
+      <div class="marquee-item">Moderne woningen <span></span></div>
+      <div class="marquee-item">Eigen ligplaats <span></span></div>
+      <div class="marquee-item">Loosdrecht <span></span></div>
+      <div class="marquee-item">Kleinschalig & persoonlijk <span></span></div>
+      <div class="marquee-item">Riet en groen <span></span></div>
+      <div class="marquee-item">Rustig vaarwater <span></span></div>
+      <div class="marquee-item">Heel het jaar <span></span></div>
+      <div class="marquee-item">Rust & natuur <span></span></div>
+      <div class="marquee-item">Aan het water <span></span></div>
+      <div class="marquee-item">Moderne woningen <span></span></div>
+      <div class="marquee-item">Eigen ligplaats <span></span></div>
+      <div class="marquee-item">Loosdrecht <span></span></div>
+      <div class="marquee-item">Kleinschalig & persoonlijk <span></span></div>
+      <div class="marquee-item">Riet en groen <span></span></div>
+      <div class="marquee-item">Rustig vaarwater <span></span></div>
+      <div class="marquee-item">Heel het jaar <span></span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Welkom ── -->
+<section id="welkom" class="welkom-section">
+  <div class="welkom-grid">
+    <div class="welkom-img-wrap reveal">
+      <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=900&q=85&auto=format&fit=crop" alt="Natuur aan het water" loading="lazy" />
+      <div class="welkom-img-badge">
+        <div class="badge-big">Rust</div>
+        <div class="badge-lbl">Op een steenworp van de Randstad</div>
+      </div>
+    </div>
+
+    <div class="welkom-text reveal" style="transition-delay:0.12s">
+      <div class="section-tag">Welkom op het park</div>
+      <h2 class="section-title">Rust, ruimte en water — op een steenworp van de <em>Randstad</em></h2>
+      <p class="section-sub">
+        Caravanpark de Stille Plas ligt prachtig verscholen in Loosdrecht, daar waar de Loosdrechtse Plassen overgaan in een lappendeken van groen en water. Het is een plek om tot rust te komen.
+      </p>
+      <p class="section-sub" style="margin-top:1rem">
+        Op het park vindt u verzorgde recreatiewoningen, veel met eigen ligplaats of tuin aan het water. Of u nu komt voor een weekend, het seizoen of het hele jaar — de Stille Plas voelt als thuiskomen.
+      </p>
+
+      <div class="welkom-kenmerken">
+        <div class="kenmerk">
+          <div class="kenmerk-icon">⛵</div>
+          <div>
+            <h4>Aan het water</h4>
+            <p>Woningen met eigen ligplaats voor de boot of sloep.</p>
+          </div>
+        </div>
+        <div class="kenmerk">
+          <div class="kenmerk-icon">🌿</div>
+          <div>
+            <h4>Omringd door groen</h4>
+            <p>Riet, bomen en water zo ver het oog reikt.</p>
+          </div>
+        </div>
+        <div class="kenmerk">
+          <div class="kenmerk-icon">🏡</div>
+          <div>
+            <h4>Moderne woningen</h4>
+            <p>Eigentijdse recreatiewoningen met ruime terrassen.</p>
+          </div>
+        </div>
+        <div class="kenmerk">
+          <div class="kenmerk-icon">🤝</div>
+          <div>
+            <h4>Persoonlijk contact</h4>
+            <p>Kleinschalig en persoonlijk. Wij denken graag mee.</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:2.5rem">
+        <a href="#contact" class="btn btn-primary btn-lg">Vrijblijvend informeren →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Bento sfeer ── -->
+<section id="sfeer" class="bento-section">
+  <div class="bento-header reveal">
+    <div class="section-tag">De sfeer</div>
+    <h2 class="section-title">Buitenleven, zoals het <em>hoort</em></h2>
+    <p class="section-sub">Van de eerste koffie in de ochtendzon tot de borrel bij zonsondergang.</p>
+  </div>
+
+  <div class="bento reveal">
+    <div class="bento-cell">
+      <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1000&q=85&auto=format&fit=crop" alt="Meer bij zonsondergang" loading="lazy" />
+      <div class="ov"></div>
+      <div class="bc">
+        <div class="bc-label">Het water</div>
+        <div class="bc-title">Stilte & weidsheid op de Loosdrechtse Plassen</div>
+      </div>
+    </div>
+    <div class="bento-cell">
+      <img src="https://images.unsplash.com/photo-1504701954957-2010ec3bcec1?w=700&q=85&auto=format&fit=crop" alt="Recreatiewoning terras" loading="lazy" />
+      <div class="ov"></div>
+      <div class="bc">
+        <div class="bc-label">Wonen</div>
+        <div class="bc-title">Ruim terras aan het water</div>
+      </div>
+    </div>
+    <div class="bento-cell">
+      <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=700&q=85&auto=format&fit=crop" alt="Natuur" loading="lazy" />
+      <div class="ov"></div>
+      <div class="bc">
+        <div class="bc-label">Natuur</div>
+        <div class="bc-title">Groen zo ver je kijkt</div>
+      </div>
+    </div>
+    <div class="bento-cell">
+      <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=700&q=85&auto=format&fit=crop" alt="Zonsondergang" loading="lazy" />
+      <div class="ov"></div>
+      <div class="bc">
+        <div class="bc-label">Avond</div>
+        <div class="bc-title">Bijzondere zonsondergangen</div>
+      </div>
+    </div>
+    <div class="bento-cell">
+      <img src="https://images.unsplash.com/photo-1520962922320-2038eebab146?w=700&q=85&auto=format&fit=crop" alt="Vaarwater" loading="lazy" />
+      <div class="ov"></div>
+      <div class="bc">
+        <div class="bc-label">Vaarwater</div>
+        <div class="bc-title">Eigen ligplaats voor de boot</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Split 1: aan het water ── -->
+<div class="split bg-white" id="features">
+  <div class="split-img reveal">
+    <img src="https://images.unsplash.com/photo-1520962922320-2038eebab146?w=900&q=85&auto=format&fit=crop" alt="Eigen ligplaats" loading="lazy" />
+    <div class="split-img-badge">
+      <div class="sib-val">⛵</div>
+      <div class="sib-lbl">Eigen ligplaats mogelijk</div>
+    </div>
+  </div>
+  <div class="reveal" style="transition-delay:0.12s">
+    <div class="section-tag">Aan het water</div>
+    <h2 class="section-title">Direct aan rustig <em>vaarwater</em></h2>
+    <p class="section-sub">Veel woningen op het park liggen direct aan het water, met de mogelijkheid tot een eigen ligplaats voor uw boot of sloep. Stap 's ochtends op en vaar de Loosdrechtse Plassen op.</p>
+    <div class="split-list">
+      <div class="split-item">
+        <div class="split-item-icon si-water">⚓</div>
+        <div>
+          <h4>Eigen ligplaats</h4>
+          <p>Direct voor de deur meren en varen wanneer het u uitkomt. Geen gedoe, gewoon genieten.</p>
+        </div>
+      </div>
+      <div class="split-item">
+        <div class="split-item-icon si-reed">🦢</div>
+        <div>
+          <h4>Rustig vaarwater</h4>
+          <p>De Stille Plas staat bekend om zijn kalmte. Geen drukte, wel de vrijheid van het water.</p>
+        </div>
+      </div>
+      <div class="split-item">
+        <div class="split-item-icon si-sun">☀️</div>
+        <div>
+          <h4>Terras op het zuiden</h4>
+          <p>Ruime buitenterrassen, het merendeel met uitzicht op het water. Zon van 's ochtends vroeg.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Split 2: woningen ── -->
+<div class="split bg-cream reverse">
+  <div class="split-img reveal">
+    <img src="https://images.unsplash.com/photo-1504701954957-2010ec3bcec1?w=900&q=85&auto=format&fit=crop" alt="Moderne recreatiewoning" loading="lazy" />
+    <div class="split-img-badge">
+      <div class="sib-val">Modern</div>
+      <div class="sib-lbl">Strak & comfortabel</div>
+    </div>
+  </div>
+  <div class="reveal" style="transition-delay:0.12s">
+    <div class="section-tag">De woningen</div>
+    <h2 class="section-title">Eigentijds wonen, midden in de <em>natuur</em></h2>
+    <p class="section-sub">De recreatiewoningen op De Stille Plas zijn modern en goed onderhouden. Strakke afwerking, comfortabele inrichting en grote ramen met uitzicht over het groen.</p>
+    <div class="split-list">
+      <div class="split-item">
+        <div class="split-item-icon si-water">🏡</div>
+        <div>
+          <h4>Moderne afwerking</h4>
+          <p>Verzorgde interieurs met kwalitatieve materialen. Comfortabel voor weekend én heel seizoen.</p>
+        </div>
+      </div>
+      <div class="split-item">
+        <div class="split-item-icon si-reed">🌳</div>
+        <div>
+          <h4>Eigen tuin of terras</h4>
+          <p>Elke woning heeft een eigen buitenruimte. Privé, groen en direct aan het water of het park.</p>
+        </div>
+      </div>
+      <div class="split-item">
+        <div class="split-item-icon si-sun">🔑</div>
+        <div>
+          <h4>Weekend, seizoen of jaarplaats</h4>
+          <p>Flexibel verblijf, aangepast aan uw wensen. Informeer vrijblijvend naar de mogelijkheden.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Split 3: ligging ── -->
+<div class="split bg-white">
+  <div class="split-img reveal">
+    <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=900&q=85&auto=format&fit=crop" alt="Loosdrecht ligging" loading="lazy" />
+    <div class="split-img-badge">
+      <div class="sib-val">± 30 min</div>
+      <div class="sib-lbl">Van Amsterdam & Utrecht</div>
+    </div>
+  </div>
+  <div class="reveal" style="transition-delay:0.12s">
+    <div class="section-tag">Ideale ligging</div>
+    <h2 class="section-title">De natuur op loopafstand, de stad <em>om de hoek</em></h2>
+    <p class="section-sub">Loosdrecht combineert het beste van twee werelden. Midden in de Hollandse natuur, maar op korte afstand van Hilversum, Utrecht en Amsterdam.</p>
+    <div class="split-list">
+      <div class="split-item">
+        <div class="split-item-icon si-water">📍</div>
+        <div>
+          <h4>Loosdrecht, Noord-Holland</h4>
+          <p>Verscholen in de Loosdrechtse Plassen — één van de mooiste waterrijke gebieden van Nederland.</p>
+        </div>
+      </div>
+      <div class="split-item">
+        <div class="split-item-icon si-reed">🚗</div>
+        <div>
+          <h4>30 minuten van Utrecht & Amsterdam</h4>
+          <p>De Randstad ligt om de hoek, maar op het park merkt u er niets van. Rust gegarandeerd.</p>
+        </div>
+      </div>
+      <div class="split-item">
+        <div class="split-item-icon si-sun">🚴</div>
+        <div>
+          <h4>Fietsen, wandelen & varen</h4>
+          <p>Prachtige fietsroutes en wandelpaden direct vanuit het park. De natuur is uw speelplaats.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Seizoenen ── -->
+<div class="seizoen-strip">
+  <div style="text-align:center;margin-bottom:3rem" class="reveal">
+    <div class="section-tag" style="justify-content:center;color:rgba(255,255,255,0.5)">Het hele jaar</div>
+    <h2 class="section-title" style="color:#fff">Elke <em style="color:var(--sun-light)">seizoen</em> zijn eigen magie</h2>
+  </div>
+  <div class="seizoen-inner reveal" style="transition-delay:0.1s">
+    <div class="seizoen-card">
+      <div class="seizoen-icon">🌸</div>
+      <div class="seizoen-name">Lente</div>
+      <div class="seizoen-desc">Het park ontluikt. Bloeiende oevers, eerste tochten op het water en frisse ochtenden.</div>
+    </div>
+    <div class="seizoen-card">
+      <div class="seizoen-icon">☀️</div>
+      <div class="seizoen-name">Zomer</div>
+      <div class="seizoen-desc">Lange dagen, warm water, zeilen en zwemmen. Het park is op zijn allermooist.</div>
+    </div>
+    <div class="seizoen-card">
+      <div class="seizoen-icon">🍂</div>
+      <div class="seizoen-name">Herfst</div>
+      <div class="seizoen-desc">Gouden kleuren, ochtendmist over het water en de stilte keert terug.</div>
+    </div>
+    <div class="seizoen-card">
+      <div class="seizoen-icon">❄️</div>
+      <div class="seizoen-name">Winter</div>
+      <div class="seizoen-desc">Knus en stil. Schaatsen als het mag, een open haard en rust die je nergens anders vindt.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Galerij ── -->
+<section id="galerij" class="galerij-section">
+  <div class="galerij-header reveal">
+    <div class="section-tag">Galerij</div>
+    <h2 class="section-title">Een kijkje op het park</h2>
+    <p class="section-sub" style="margin:0 auto">Beelden zeggen meer dan woorden. Dit is de plek waar uw rust begint.</p>
+  </div>
+
+  <div class="galerij-grid reveal">
+    <div class="galerij-item">
+      <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1000&q=85&auto=format&fit=crop" alt="Loosdrecht meer" loading="lazy" />
+    </div>
+    <div class="galerij-item">
+      <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&q=85&auto=format&fit=crop" alt="Natuur" loading="lazy" />
+    </div>
+    <div class="galerij-item">
+      <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&q=85&auto=format&fit=crop" alt="Zonsondergang" loading="lazy" />
+    </div>
+    <div class="galerij-item">
+      <img src="https://images.unsplash.com/photo-1520962922320-2038eebab146?w=600&q=85&auto=format&fit=crop" alt="Vaarwater" loading="lazy" />
+    </div>
+    <div class="galerij-item">
+      <img src="https://images.unsplash.com/photo-1504701954957-2010ec3bcec1?w=900&q=85&auto=format&fit=crop" alt="Woning terras" loading="lazy" />
+    </div>
+    <div class="galerij-item">
+      <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=600&q=85&auto=format&fit=crop" alt="Park" loading="lazy" />
+    </div>
+  </div>
+</section>
+
+<!-- ── Testimonials ── -->
+<section class="testi-section">
+  <div class="testi-header reveal">
+    <div class="section-tag">Ervaringen</div>
+    <h2 class="section-title">Wat onze gasten <em>zeggen</em></h2>
+    <p class="section-sub" style="margin:0 auto">Mensen die het park kennen, snappen waarom ze blijven terugkomen.</p>
+  </div>
+
+  <div class="testi-grid">
+    <div class="testi-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">"Al jaren komen wij hier elk seizoen. De rust van de Stille Plas is nergens anders te vinden. 's Ochtends een bootje pakken en de plassen op — dat is voor ons het echte genieten."</p>
+      <div class="testi-author">
+        <img class="tav" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&q=80&auto=format&fit=crop&crop=face" alt="" />
+        <div>
+          <div class="author-name">Peter van Dijk</div>
+          <div class="author-from">Seizoensgast · Amsterdam</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testi-card reveal" style="transition-delay:0.1s">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">"De woning is prachtig en het terras aan het water is ons favoriete plekje. Kleinschalig, persoonlijk contact en altijd verzorgd. We zijn direct verliefd geworden op dit park."</p>
+      <div class="testi-author">
+        <img class="tav" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&q=80&auto=format&fit=crop&crop=face" alt="" />
+        <div>
+          <div class="author-name">Mirjam Hoogenbosch</div>
+          <div class="author-from">Recreatiewoning eigenaar · Utrecht</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testi-card reveal" style="transition-delay:0.2s">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">"Wat een parel van een plek. In de herfst is het hier bijzonder mooi — mist over het water, geen toeristen meer en een rust die je bijna vergeten was. Absoluut een aanrader."</p>
+      <div class="testi-author">
+        <img class="tav" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&q=80&auto=format&fit=crop&crop=face" alt="" />
+        <div>
+          <div class="author-name">Robert Smeets</div>
+          <div class="author-from">Jaarplaats · Hilversum</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section id="cta" class="cta-section">
+  <div class="cta-bg"></div>
+  <div class="cta-inner reveal">
+    <div class="hero-tag" style="color:rgba(255,255,255,0.5);margin-bottom:1.25rem">
+      <span style="background:var(--sun);height:1.5px"></span>
+      Vrijblijvend kennismaken
+    </div>
+    <h2>Benieuwd naar de <em>mogelijkheden?</em></h2>
+    <p>Laat uw gegevens achter en wij vertellen u graag meer over wonen en recreëren aan de Stille Plas. Geen verplichtingen.</p>
+    <div class="cta-form">
+      <input type="email" placeholder="uw@emailadres.nl" id="emailInput" />
+      <button class="btn btn-sun" onclick="handleCta()">Informeer mij →</button>
+    </div>
+    <p class="cta-note">Wij nemen binnen één werkdag contact met u op.</p>
+  </div>
+</section>
+
+<!-- ── Contact ── -->
+<section id="contact" class="contact-section">
+  <div class="contact-grid">
+    <div class="reveal">
+      <div class="contact-photo">
+        <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=800&q=85&auto=format&fit=crop" alt="Het park" loading="lazy" />
+      </div>
+
+      <div class="section-tag">Contact</div>
+      <h2 class="section-title" style="margin-bottom:0.75rem">Benieuwd naar de <em>mogelijkheden?</em></h2>
+      <p class="section-sub">Laat uw gegevens achter of neem direct contact met ons op. Wij vertellen u graag vrijblijvend meer over wonen en recreëren aan de Stille Plas.</p>
+
+      <div class="contact-items">
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div><h4>Locatie</h4><p>Caravanpark de Stille Plas · Loosdrecht</p></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div><h4>Telefoon</h4><p>Bel ons — vul uw nummer in het formulier in</p></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📧</div>
+          <div><h4>E-mail</h4><p>Mail ons gerust via het contactformulier</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form reveal" style="transition-delay:0.15s">
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--water);margin-bottom:1.75rem">Stuur ons een bericht</h3>
+      <div class="form-row">
+        <div class="form-group"><label>Naam</label><input type="text" placeholder="Uw naam" /></div>
+        <div class="form-group"><label>E-mail</label><input type="email" placeholder="uw@email.nl" /></div>
+      </div>
+      <div class="form-group"><label>Telefoon (optioneel)</label><input type="tel" placeholder="+31 6 ..." /></div>
+      <div class="form-group">
+        <label>Interesse in</label>
+        <select>
+          <option value="">Selecteer...</option>
+          <option>Recreatiewoning kopen</option>
+          <option>Jaarplaats huren</option>
+          <option>Seizoensplaats</option>
+          <option>Weekend verblijf</option>
+          <option>Algemene informatie</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Uw bericht</label><textarea rows="4" placeholder="Vertel ons meer over uw wensen..."></textarea></div>
+      <button class="btn btn-primary" style="width:100%;justify-content:center;padding:0.9rem" onclick="handleContact()">Verstuur bericht →</button>
+      <p style="font-size:0.72rem;color:var(--muted);margin-top:0.75rem;text-align:center">Door te verzenden gaat u akkoord dat wij contact met u opnemen.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo">
+        <span class="logo-main">De Stille Plas</span>
+        <span class="logo-sub">Caravanpark · Loosdrecht</span>
+      </div>
+      <p>Een kleinschalig recreatiepark in het hart van de Loosdrechtse natuur. Wonen waar het water stil is.</p>
+      <div class="footer-social">
+        <a href="#" class="social-btn">fb</a>
+        <a href="#" class="social-btn">ig</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Het park</h5>
+      <ul>
+        <li><a href="#welkom">Over ons</a></li>
+        <li><a href="#sfeer">De sfeer</a></li>
+        <li><a href="#galerij">Galerij</a></li>
+        <li><a href="#features">De woningen</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Verblijf</h5>
+      <ul>
+        <li><a href="#contact">Recreatiewoning</a></li>
+        <li><a href="#contact">Jaarplaats</a></li>
+        <li><a href="#contact">Seizoensplaats</a></li>
+        <li><a href="#contact">Weekend</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Contact</h5>
+      <ul>
+        <li><a href="#contact">Contactformulier</a></li>
+        <li><a href="#contact">Locatie</a></li>
+        <li><a href="#contact">Bel ons</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Caravanpark De Stille Plas · Loosdrecht · Nederland</p>
+    <div class="footer-bottom-links">
+      <a href="#">Privacybeleid</a>
+      <a href="#">Algemene voorwaarden</a>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast">
+  <span class="toast-icon">✓</span>
+  <span id="toastMsg">Bedankt! Wij nemen zo spoedig mogelijk contact met u op.</span>
+</div>
+
+<script>
+  // Reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(r => observer.observe(r));
+  setTimeout(() => document.querySelectorAll('.hero .reveal').forEach(el => el.classList.add('visible')), 80);
+
+  // Mobile menu
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+  // Toast
+  function showToast(msg) {
+    const toast = document.getElementById('toast');
+    document.getElementById('toastMsg').textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 4500);
+  }
+  function handleCta() {
+    const v = document.getElementById('emailInput').value;
+    if (!v || !v.includes('@')) { showToast('Vul een geldig e-mailadres in.'); return; }
+    showToast('Bedankt! Wij nemen zo spoedig mogelijk contact met u op.');
+    document.getElementById('emailInput').value = '';
+  }
+  function handleContact() { showToast('Bericht verstuurd! Wij nemen contact met u op.'); }
+</script>
+</body>
+</html>
