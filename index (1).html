@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brouwer Techniek – Uw vakman in de regio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --white: #ffffff;
+    --off: #f7f8fa;
+    --light: #eef0f4;
+    --border: #e2e5ec;
+    --muted: #8b92a5;
+    --text: #1a1d27;
+    --sub: #4a5068;
+    --blue: #1a56db;
+    --blue-light: #eff4ff;
+    --blue-mid: #3b82f6;
+    --green: #059669;
+    --green-light: #ecfdf5;
+    --font: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { background: var(--white); color: var(--text); font-family: var(--font); font-size: 16px; line-height: 1.6; overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    height: 68px;
+    background: rgba(255,255,255,0.96);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 64px;
+  }
+
+  .logo {
+    font-size: 20px; font-weight: 800; color: var(--text); text-decoration: none;
+    display: flex; align-items: center; gap: 10px;
+  }
+
+  .logo-icon {
+    width: 36px; height: 36px; background: var(--blue); border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+
+  .logo span { color: var(--blue); }
+
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a { font-size: 14px; font-weight: 500; color: var(--sub); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text); }
+
+  .nav-btn {
+    background: var(--blue); color: white; padding: 10px 22px; border-radius: 8px;
+    font-size: 14px; font-weight: 600; text-decoration: none; transition: background 0.2s;
+  }
+  .nav-btn:hover { background: #1648c7; }
+
+  /* HERO */
+  .hero {
+    padding-top: 68px;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #f0f5ff 0%, #ffffff 50%, #f0fdf4 100%);
+    z-index: 0;
+  }
+
+  .hero-dots {
+    position: absolute; inset: 0; z-index: 0;
+    background-image: radial-gradient(circle, #d1d9f0 1px, transparent 1px);
+    background-size: 28px 28px;
+    opacity: 0.5;
+  }
+
+  .hero-inner {
+    position: relative; z-index: 1;
+    max-width: 1200px; margin: 0 auto; padding: 80px 64px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--green-light); color: var(--green);
+    border: 1px solid #a7f3d0;
+    padding: 6px 14px; border-radius: 100px;
+    font-size: 13px; font-weight: 600; margin-bottom: 28px;
+  }
+
+  .hero-badge::before { content: '●'; font-size: 8px; }
+
+  h1 {
+    font-size: clamp(40px, 5vw, 60px);
+    font-weight: 800; line-height: 1.1;
+    color: var(--text); margin-bottom: 24px;
+  }
+
+  h1 em { color: var(--blue); font-style: normal; }
+
+  .hero-sub {
+    font-size: 17px; font-weight: 400; color: var(--sub);
+    line-height: 1.75; margin-bottom: 40px; max-width: 440px;
+  }
+
+  .hero-btns { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+
+  .btn-blue {
+    background: var(--blue); color: white; padding: 14px 28px; border-radius: 10px;
+    font-size: 15px; font-weight: 600; text-decoration: none;
+    transition: background 0.2s, transform 0.15s; display: inline-block;
+  }
+  .btn-blue:hover { background: #1648c7; transform: translateY(-1px); }
+
+  .btn-outline {
+    border: 1.5px solid var(--border); color: var(--text); padding: 14px 28px; border-radius: 10px;
+    font-size: 15px; font-weight: 600; text-decoration: none;
+    transition: border-color 0.2s, background 0.2s; display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--blue); background: var(--blue-light); }
+
+  .hero-trust {
+    display: flex; gap: 24px; margin-top: 40px; flex-wrap: wrap;
+  }
+
+  .trust-item {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; font-weight: 500; color: var(--sub);
+  }
+
+  .trust-icon { color: var(--green); font-size: 16px; }
+
+  /* HERO CARD */
+  .hero-card-wrap {
+    position: relative;
+  }
+
+  .hero-card {
+    background: white; border: 1px solid var(--border); border-radius: 20px;
+    padding: 32px; box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+  }
+
+  .card-header {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 24px;
+  }
+
+  .card-avatar {
+    width: 48px; height: 48px; background: var(--blue-light); border-radius: 12px;
+    display: flex; align-items: center; justify-content: center; font-size: 22px;
+  }
+
+  .card-name { font-size: 16px; font-weight: 700; color: var(--text); }
+  .card-role { font-size: 13px; color: var(--muted); }
+
+  .service-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+
+  .service-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 16px; background: var(--off); border-radius: 10px;
+  }
+
+  .service-row-left { display: flex; align-items: center; gap: 10px; }
+  .service-row-icon { font-size: 18px; }
+  .service-row-name { font-size: 14px; font-weight: 600; color: var(--text); }
+  .service-row-badge {
+    font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 100px;
+  }
+  .badge-green { background: var(--green-light); color: var(--green); }
+  .badge-blue { background: var(--blue-light); color: var(--blue); }
+
+  .card-footer {
+    background: var(--blue); border-radius: 10px; padding: 16px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+
+  .card-footer-text { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.85); }
+  .card-footer-num { font-size: 22px; font-weight: 800; color: white; }
+
+  .floating-badge {
+    position: absolute; top: -16px; right: -16px;
+    background: white; border: 1px solid var(--border); border-radius: 12px;
+    padding: 12px 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    display: flex; align-items: center; gap: 10px;
+  }
+
+  .floating-stars { color: #f59e0b; font-size: 13px; letter-spacing: 1px; }
+  .floating-text { font-size: 12px; font-weight: 700; color: var(--text); }
+  .floating-sub { font-size: 11px; color: var(--muted); }
+
+  /* SECTION SHARED */
+  section { padding: 96px 64px; max-width: 1200px; margin: 0 auto; }
+  .full-section { padding: 96px 64px; }
+
+  .tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--blue); margin-bottom: 16px;
+  }
+
+  .tag::before { content: ''; width: 20px; height: 2px; background: var(--blue); border-radius: 2px; }
+
+  h2 { font-size: clamp(32px, 4vw, 48px); font-weight: 800; color: var(--text); line-height: 1.15; margin-bottom: 16px; }
+  .section-sub { font-size: 17px; color: var(--sub); max-width: 520px; line-height: 1.7; }
+
+  /* DIENSTEN */
+  .diensten-bg { background: var(--off); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+  .diensten-inner { max-width: 1200px; margin: 0 auto; padding: 96px 64px; }
+
+  .diensten-top { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 56px; gap: 40px; }
+
+  .diensten-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+
+  .dienst {
+    background: white; border: 1px solid var(--border); border-radius: 16px; padding: 32px;
+    transition: box-shadow 0.2s, transform 0.2s; cursor: default;
+  }
+
+  .dienst:hover { box-shadow: 0 12px 40px rgba(26,86,219,0.1); transform: translateY(-3px); }
+
+  .dienst-icon-wrap {
+    width: 52px; height: 52px; background: var(--blue-light); border-radius: 12px;
+    display: flex; align-items: center; justify-content: center; font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .dienst h3 { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+  .dienst p { font-size: 14px; color: var(--sub); line-height: 1.7; }
+
+  .dienst-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 600; color: var(--blue);
+    text-decoration: none; margin-top: 16px;
+    transition: gap 0.2s;
+  }
+  .dienst-link:hover { gap: 10px; }
+
+  /* WERKWIJZE */
+  .werkwijze-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+
+  .steps { display: flex; flex-direction: column; gap: 0; }
+
+  .step {
+    display: flex; gap: 20px; padding: 28px 0;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  .step:last-child { border-bottom: none; }
+
+  .step-num-wrap {
+    min-width: 40px; height: 40px;
+    background: var(--blue); border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 800; color: white;
+  }
+
+  .step h4 { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+  .step p { font-size: 14px; color: var(--sub); line-height: 1.7; }
+
+  .werkwijze-visual {
+    background: var(--blue); border-radius: 24px; padding: 48px;
+    display: flex; flex-direction: column; gap: 20px;
+  }
+
+  .wv-stat { background: rgba(255,255,255,0.12); border-radius: 14px; padding: 24px; }
+  .wv-num { font-size: 48px; font-weight: 800; color: white; line-height: 1; }
+  .wv-label { font-size: 13px; color: rgba(255,255,255,0.7); margin-top: 4px; }
+
+  .wv-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .wv-small { background: rgba(255,255,255,0.08); border-radius: 12px; padding: 18px; }
+  .wv-small-num { font-size: 28px; font-weight: 800; color: white; line-height: 1; }
+  .wv-small-label { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 3px; }
+
+  /* REVIEWS */
+  .reviews-bg { background: var(--off); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .reviews-inner { max-width: 1200px; margin: 0 auto; padding: 96px 64px; }
+  .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 56px; }
+
+  .review {
+    background: white; border: 1px solid var(--border); border-radius: 16px; padding: 28px;
+  }
+
+  .review-stars { color: #f59e0b; font-size: 14px; letter-spacing: 2px; margin-bottom: 14px; }
+  .review-text { font-size: 15px; color: var(--sub); line-height: 1.7; margin-bottom: 20px; font-style: italic; }
+  .review-author { display: flex; align-items: center; gap: 12px; }
+  .review-avatar {
+    width: 40px; height: 40px; border-radius: 10px;
+    background: var(--blue-light); display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 14px; color: var(--blue);
+  }
+  .review-name { font-size: 14px; font-weight: 700; color: var(--text); }
+  .review-company { font-size: 12px; color: var(--muted); }
+
+  /* CONTACT */
+  .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+
+  .contact-details { display: flex; flex-direction: column; gap: 20px; margin-top: 40px; }
+
+  .contact-item {
+    display: flex; gap: 16px; align-items: flex-start;
+    padding: 20px; background: var(--off); border-radius: 12px; border: 1px solid var(--border);
+  }
+
+  .contact-item-icon {
+    width: 40px; height: 40px; background: var(--blue-light); border-radius: 10px;
+    display: flex; align-items: center; justify-content: center; font-size: 18px; min-width: 40px;
+  }
+
+  .contact-item-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+  .contact-item-value { font-size: 15px; font-weight: 500; color: var(--text); }
+
+  .form { display: flex; flex-direction: column; gap: 16px; background: white; border: 1px solid var(--border); border-radius: 20px; padding: 36px; }
+  .form-title { font-size: 20px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+  .form-sub { font-size: 14px; color: var(--muted); margin-bottom: 8px; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-label { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--sub); }
+
+  .form-input, .form-textarea, .form-select {
+    border: 1.5px solid var(--border); border-radius: 10px;
+    padding: 12px 14px; font-family: var(--font); font-size: 14px; color: var(--text);
+    background: var(--off); outline: none; transition: border-color 0.2s, background 0.2s; width: 100%;
+  }
+
+  .form-input:focus, .form-textarea:focus, .form-select:focus {
+    border-color: var(--blue); background: white;
+  }
+
+  .form-textarea { min-height: 110px; resize: vertical; }
+  .form-select { appearance: none; cursor: pointer; }
+
+  .form-submit {
+    background: var(--blue); color: white; border: none; border-radius: 10px;
+    padding: 16px; font-family: var(--font); font-size: 15px; font-weight: 700;
+    cursor: pointer; transition: background 0.2s; width: 100%;
+  }
+  .form-submit:hover { background: #1648c7; }
+
+  /* FOOTER */
+  footer {
+    background: var(--text); color: rgba(255,255,255,0.6);
+    padding: 48px 64px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+
+  .footer-logo { font-size: 18px; font-weight: 800; color: white; }
+  .footer-logo span { color: var(--blue-mid); }
+  .footer-copy { font-size: 13px; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-left-content > * { animation: fadeUp 0.6s ease both; }
+  .hero-left-content > *:nth-child(1) { animation-delay: 0.1s; }
+  .hero-left-content > *:nth-child(2) { animation-delay: 0.2s; }
+  .hero-left-content > *:nth-child(3) { animation-delay: 0.3s; }
+  .hero-left-content > *:nth-child(4) { animation-delay: 0.4s; }
+  .hero-left-content > *:nth-child(5) { animation-delay: 0.5s; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="logo">
+    <div class="logo-icon">🔧</div>
+    Brouwer <span>Techniek</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#diensten">Diensten</a></li>
+    <li><a href="#werkwijze">Werkwijze</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-btn">Bel ons: 0512 – 34 56 78</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-dots"></div>
+  <div class="hero-inner">
+    <div class="hero-left-content">
+      <div class="hero-badge">Beschikbaar in de regio</div>
+      <h1>Uw betrouwbare<br><em>vakman</em> voor thuis<br>en bedrijf</h1>
+      <p class="hero-sub">Van lekkage tot volledige installatie — Brouwer Techniek lost het op. Snel, netjes en voor een eerlijke prijs.</p>
+      <div class="hero-btns">
+        <a href="#contact" class="btn-blue">Gratis offerte aanvragen</a>
+        <a href="#diensten" class="btn-outline">Bekijk onze diensten</a>
+      </div>
+      <div class="hero-trust">
+        <div class="trust-item"><span class="trust-icon">✓</span> Gecertificeerd vakman</div>
+        <div class="trust-item"><span class="trust-icon">✓</span> Binnen 24 uur ter plaatse</div>
+        <div class="trust-item"><span class="trust-icon">✓</span> Garantie op werk</div>
+      </div>
+    </div>
+    <div class="hero-card-wrap">
+      <div class="floating-badge">
+        <div>
+          <div class="floating-stars">★★★★★</div>
+          <div class="floating-text">9.8 / 10</div>
+          <div class="floating-sub">120+ beoordelingen</div>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="card-header">
+          <div class="card-avatar">👨‍🔧</div>
+          <div>
+            <div class="card-name">Brouwer Techniek</div>
+            <div class="card-role">Installateur & onderhoudsbedrijf</div>
+          </div>
+        </div>
+        <div class="service-list">
+          <div class="service-row">
+            <div class="service-row-left">
+              <span class="service-row-icon">💧</span>
+              <span class="service-row-name">Loodgieterswerk</span>
+            </div>
+            <span class="service-row-badge badge-green">Beschikbaar</span>
+          </div>
+          <div class="service-row">
+            <div class="service-row-left">
+              <span class="service-row-icon">⚡</span>
+              <span class="service-row-name">Elektra</span>
+            </div>
+            <span class="service-row-badge badge-green">Beschikbaar</span>
+          </div>
+          <div class="service-row">
+            <div class="service-row-left">
+              <span class="service-row-icon">🌡️</span>
+              <span class="service-row-name">CV & verwarming</span>
+            </div>
+            <span class="service-row-badge badge-blue">Spoed mogelijk</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div>
+            <div class="card-footer-text">Gemiddelde reactietijd</div>
+            <div class="card-footer-num">< 2 uur</div>
+          </div>
+          <span style="font-size:28px">⚡</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="diensten-bg" id="diensten">
+  <div class="diensten-inner">
+    <div class="diensten-top">
+      <div>
+        <div class="tag">Onze diensten</div>
+        <h2>Wat kunnen wij<br>voor u betekenen?</h2>
+      </div>
+      <p class="section-sub">Wij bieden een compleet pakket aan technische diensten voor particulieren en bedrijven in de regio.</p>
+    </div>
+    <div class="diensten-grid">
+      <div class="dienst">
+        <div class="dienst-icon-wrap">💧</div>
+        <h3>Loodgieterswerk</h3>
+        <p>Lekkages, verstoppingen, nieuwe aansluitingen en badkamerrenovaties. Wij lossen elk sanitair probleem op.</p>
+        <a href="#contact" class="dienst-link">Meer informatie →</a>
+      </div>
+      <div class="dienst">
+        <div class="dienst-icon-wrap">⚡</div>
+        <h3>Elektrotechniek</h3>
+        <p>Groepenkast vervangen, stopcontacten bijplaatsen, verlichting aanleggen of volledige elektrische installaties.</p>
+        <a href="#contact" class="dienst-link">Meer informatie →</a>
+      </div>
+      <div class="dienst">
+        <div class="dienst-icon-wrap">🌡️</div>
+        <h3>CV & Verwarming</h3>
+        <p>Ketelonderhoud, radiatoren, vloerverwarming en warmtepompen. Comfortabel warm — het hele jaar door.</p>
+        <a href="#contact" class="dienst-link">Meer informatie →</a>
+      </div>
+      <div class="dienst">
+        <div class="dienst-icon-wrap">🚿</div>
+        <h3>Badkamer & Keuken</h3>
+        <p>Complete renovaties of kleine aanpassingen. Van planning tot oplevering — wij verzorgen alles.</p>
+        <a href="#contact" class="dienst-link">Meer informatie →</a>
+      </div>
+      <div class="dienst">
+        <div class="dienst-icon-wrap">☀️</div>
+        <h3>Zonnepanelen</h3>
+        <p>Advies, installatie en aansluiting van zonnepanelen. Bespaar op uw energierekening met een betrouwbaar systeem.</p>
+        <a href="#contact" class="dienst-link">Meer informatie →</a>
+      </div>
+      <div class="dienst">
+        <div class="dienst-icon-wrap">🔧</div>
+        <h3>Onderhoud & spoed</h3>
+        <p>Preventief onderhoud en 24/7 spoedservice. Want storingen kiezen niet voor een handig moment.</p>
+        <a href="#contact" class="dienst-link">Meer informatie →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="werkwijze">
+  <div class="werkwijze-inner">
+    <div>
+      <div class="tag">Hoe we werken</div>
+      <h2>Helder proces,<br>geen verrassingen</h2>
+      <p class="section-sub" style="margin-bottom:40px">Wij geloven in duidelijke communicatie en transparante prijzen. Zo weet u altijd waar u aan toe bent.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num-wrap">1</div>
+          <div>
+            <h4>Contact opnemen</h4>
+            <p>Bel, mail of vul het formulier in. We reageren binnen 2 uur op werkdagen.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num-wrap">2</div>
+          <div>
+            <h4>Gratis inspectie & offerte</h4>
+            <p>We komen langs, bekijken de situatie en geven een heldere offerte zonder verborgen kosten.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num-wrap">3</div>
+          <div>
+            <h4>Vakkundige uitvoering</h4>
+            <p>Onze monteurs voeren het werk netjes en efficiënt uit. U wordt op de hoogte gehouden.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num-wrap">4</div>
+          <div>
+            <h4>Klaar & tevreden</h4>
+            <p>Na oplevering controleren we alles samen. Pas als u tevreden bent, zijn wij klaar.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="werkwijze-visual">
+      <div class="wv-stat">
+        <div class="wv-num">98%</div>
+        <div class="wv-label">Tevreden klanten</div>
+      </div>
+      <div class="wv-row">
+        <div class="wv-small">
+          <div class="wv-small-num">12+</div>
+          <div class="wv-small-label">Jaar ervaring</div>
+        </div>
+        <div class="wv-small">
+          <div class="wv-small-num">850+</div>
+          <div class="wv-small-label">Projecten</div>
+        </div>
+      </div>
+      <div class="wv-row">
+        <div class="wv-small">
+          <div class="wv-small-num">24/7</div>
+          <div class="wv-small-label">Spoedservice</div>
+        </div>
+        <div class="wv-small">
+          <div class="wv-small-num">2 uur</div>
+          <div class="wv-small-label">Reactietijd</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="reviews-bg" id="reviews">
+  <div class="reviews-inner">
+    <div class="tag">Wat klanten zeggen</div>
+    <h2>Beoordelingen</h2>
+    <div class="reviews-grid">
+      <div class="review">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Super snel geholpen bij een lekkage. Binnen een uur ter plaatse en netjes opgelost. Echt een aanrader!"</p>
+        <div class="review-author">
+          <div class="review-avatar">MV</div>
+          <div>
+            <div class="review-name">Marco Visser</div>
+            <div class="review-company">Particulier, Leeuwarden</div>
+          </div>
+        </div>
+      </div>
+      <div class="review">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Eindelijk een vakman die op tijd komt en zijn afspraken nakomt. De groepenkast is perfect vervangen."</p>
+        <div class="review-author">
+          <div class="review-avatar">SB</div>
+          <div>
+            <div class="review-name">Sandra Bakker</div>
+            <div class="review-company">Bakker Interieur BV</div>
+          </div>
+        </div>
+      </div>
+      <div class="review">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Uitstekend werk aan onze badkamerrenovatie. Mooie prijs, nette uitvoering en altijd bereikbaar. Absoluut 5 sterren."</p>
+        <div class="review-author">
+          <div class="review-avatar">PD</div>
+          <div>
+            <div class="review-name">Peter de Groot</div>
+            <div class="review-company">Particulier, Drachten</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="contact">
+  <div class="contact-inner">
+    <div>
+      <div class="tag">Direct contact</div>
+      <h2>Vraag een gratis<br>offerte aan</h2>
+      <p class="section-sub">Wij reageren binnen 2 uur op werkdagen. Liever bellen? Dat kan ook!</p>
+      <div class="contact-details">
+        <div class="contact-item">
+          <div class="contact-item-icon">📞</div>
+          <div>
+            <div class="contact-item-label">Telefoon</div>
+            <div class="contact-item-value">0512 – 34 56 78</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">✉️</div>
+          <div>
+            <div class="contact-item-label">E-mail</div>
+            <div class="contact-item-value">info@brouwertechniek.nl</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">📍</div>
+          <div>
+            <div class="contact-item-label">Werkgebied</div>
+            <div class="contact-item-value">Friesland & omgeving</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form">
+      <div class="form-title">Stuur een bericht</div>
+      <div class="form-sub">Vrijblijvend — we nemen snel contact op</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Naam</label>
+          <input type="text" class="form-input" placeholder="Uw naam">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Telefoon</label>
+          <input type="tel" class="form-input" placeholder="06 – ...">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">E-mail</label>
+        <input type="email" class="form-input" placeholder="u@email.nl">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Dienst</label>
+        <select class="form-select">
+          <option>Selecteer een dienst</option>
+          <option>Loodgieterswerk</option>
+          <option>Elektrotechniek</option>
+          <option>CV & Verwarming</option>
+          <option>Badkamer & Keuken</option>
+          <option>Zonnepanelen</option>
+          <option>Spoed / anders</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Bericht</label>
+        <textarea class="form-textarea" placeholder="Beschrijf uw situatie..."></textarea>
+      </div>
+      <button class="form-submit">Verstuur aanvraag →</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Brouwer <span>Techniek</span></div>
+  <div class="footer-copy">© 2025 Brouwer Techniek — KvK 12345678</div>
+</footer>
+
+</body>
+</html>
